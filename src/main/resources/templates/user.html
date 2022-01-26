@@ -2,37 +2,75 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>User page</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 </head>
 <body>
-<div>
-    <h2>User</h2>
-    <table border="1">
-        <tr>
-            <th>Id</th>
-            <th>Логин</th>
-            <th>Пароль</th>
-            <th>Имя</th>
-            <th>Фамилия</th>
-            <th>Email</th>
-        </tr>
-        <tr>
-            <td th:text="${user.getId()}"></td>
-            <td th:text="${user.getUsername()}"></td>
-            <td th:text="${user.getPassword()}"></td>
-            <td th:text="${user.getFirstName()}"></td>
-            <td th:text="${user.getLastName()}"></td>
-            <td th:text="${user.getEmail()}"></td>
-        </tr>
-    </table>
 
-    <br>
-    <br>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <span class="navbar-brand" th:text="${user.getEmail()} + ' with roles: ' + ${user.getRolesAsString()}"></span>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-    <form th:action="@{/logout}" method="POST">
-        <input type="submit" value="Выйти"/>
-    </form>
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-2 bg-white p-0 pt-3">
+
+            <div class="nav flex-column nav-pills" aria-orientation="vertical" role="tablist">
+                <a class="nav-link active" id="user-tab" href="#user" role="tab" aria-selected="false" data-toggle="pill">User</a>
+            </div>
+
+        </div>
+
+        <div class="col-10 bg-light pt-3"  style="height: 100vh;">
+
+            <div class="tab-content">
+
+                <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
+                    <div><h2>User information-page</h2></div>
+
+                    <div class="card-header"><h5>About user</h5></div>
+
+                    <div class="card-body bg-white">
+                        <table class="table table-striped bg-white">
+                            <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Firstname</th>
+                                <th scope="col">Lastname</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <td th:text="${user.getId()}"></td>
+                            <td th:text="${user.getFirstName()}"></td>
+                            <td th:text="${user.getLastName()}"></td>
+                            <td th:text="${user.getEmail()}"></td>
+                            <td th:text="${user.getRolesAsString()}"></td>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 </body>
 </html>

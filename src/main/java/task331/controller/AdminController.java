@@ -1,6 +1,7 @@
 package task331.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,10 @@ public class AdminController {
     @GetMapping()
     public String getUsers(ModelMap model) {
         List<User> users = userService.listUsers();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("authorizedUser", user);
         model.addAttribute("users", users);
+        model.addAttribute("roles", roleService.getRoles());
         return "admin";
     }
 
@@ -58,8 +62,7 @@ public class AdminController {
     }
 
     @PatchMapping("/{id}")
-    public String updateUser(@PathVariable("id") Long id,
-                             @ModelAttribute("user") User user,
+    public String updateUser(@ModelAttribute("user") User user,
                              @RequestParam List<String> listRoles) {
 
         Set<Role> userRoles = new HashSet<>();
@@ -68,13 +71,13 @@ public class AdminController {
         }
         user.setRoles(userRoles);
 
-        userService.updateUser(id, user);
+        userService.updateUser(user.getId(), user);
         return "redirect:/admin";
     }
 
     @DeleteMapping("/{id}")
-    public String removeUser(@PathVariable("id") Long id) {
-        userService.removeUser(id);
+    public String removeUser(@ModelAttribute("user") User user) {
+        userService.removeUser(user.getId());
         return "redirect:/admin";
     }
 }

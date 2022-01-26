@@ -8,9 +8,6 @@
 <body>
 <div>
     <form th:method="POST" th:action="@{/admin}" th:object="${user}">
-        <label for="name">Логин: </label>
-        <input type="text" th:field="*{name}" id="name">
-        <br>
         <label for="password">Пароль: </label>
         <input type="text" th:field="*{password}" id="password">
         <br>

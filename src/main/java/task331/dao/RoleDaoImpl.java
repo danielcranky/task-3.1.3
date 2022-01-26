@@ -26,4 +26,9 @@ public class RoleDaoImpl implements RoleDao {
         q.setParameter("role", s);
         return q.getSingleResult();
     }
+
+    @Override
+    public void addRole(Role role) {
+        em.persist(role);
+    }
 }

@@ -32,10 +32,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                //.loginPage("/login")  // указываем страницу с формой логина
+                .loginPage("/login")  // указываем страницу с формой логина
                 .successHandler(successUserHandler)  //указываем логику обработки при логине
                 .loginProcessingUrl("/login")   // указываем action с формы логина
-                .usernameParameter("j_username")    // Указываем параметры логина и пароля с формы логина
+                .usernameParameter("j_email")    // Указываем параметры логина и пароля с формы логина
                 .passwordParameter("j_password")
                 .permitAll();   // даем доступ к форме логина всем
 

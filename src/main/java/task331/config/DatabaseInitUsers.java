@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.Transactional;
 import task331.model.Role;
 import task331.model.User;
+import task331.service.RoleService;
 import task331.service.UserService;
 
 import javax.annotation.PostConstruct;
@@ -15,20 +16,27 @@ import java.util.Set;
 public class DatabaseInitUsers {
 
     UserService userService;
+    RoleService roleService;
 
-    @Autowired
-    public DatabaseInitUsers(UserService userService) {
+    public DatabaseInitUsers(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @PostConstruct
     @Transactional
-    void initDatabase() {
+    public void initDatabase() {
         if (userService.listUsers().isEmpty()) {
-            User admin = new User("admin", "admin", "Ivan", "Ivanov", "ivanov@mail.ru",
-                    new HashSet<>(Set.of(new Role("ROLE_ADMIN"))));
-            User user = new User("user", "user", "Petr", "Petrov", "petrov@mail.ru",
-                    new HashSet<>(Set.of(new Role("ROLE_USER"))));
+
+            Role adminRole = new Role("ROLE_ADMIN");
+            Role userRole = new Role("ROLE_USER");
+            roleService.addRole(adminRole);
+            roleService.addRole(userRole);
+
+            User admin = new User("ivanov@mail.ru", "admin", "Ivan", "Ivanov",
+                    new HashSet<>(Set.of(adminRole)));
+            User user = new User("petrov@mail.ru", "user", "Petr", "Petrov",
+                    new HashSet<>(Set.of(userRole)));
             userService.addUser(admin);
             userService.addUser(user);
         }

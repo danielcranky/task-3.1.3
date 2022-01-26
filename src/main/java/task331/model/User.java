@@ -18,7 +18,7 @@ public class User implements UserDetails {
    private Long id;
 
    @Column(unique = true)
-   private String name;
+   private String email;
 
    private String password;
 
@@ -26,24 +26,21 @@ public class User implements UserDetails {
 
    private String lastName;
 
-   private String email;
 
-   @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+   @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
    @Fetch(FetchMode.SELECT)
    private Set<Role> roles;
 
    public User() {}
    
-   public User(String name, String password, String firstName, String lastName, String email) {
-      this.name = name;
+   public User(String email, String password, String firstName, String lastName) {
       this.password = password;
       this.firstName = firstName;
       this.lastName = lastName;
       this.email = email;
    }
 
-   public User(String name, String password, String firstName, String lastName, String email, Set<Role> roles) {
-      this.name = name;
+   public User(String email, String password, String firstName, String lastName, Set<Role> roles) {
       this.password = password;
       this.firstName = firstName;
       this.lastName = lastName;
@@ -83,14 +80,6 @@ public class User implements UserDetails {
       this.email = email;
    }
 
-   public String getName() {
-      return name;
-   }
-
-   public void setName(String name) {
-      this.name = name;
-   }
-
    public void setPassword(String password) {
       this.password = password;
    }
@@ -101,6 +90,14 @@ public class User implements UserDetails {
 
    public void setRoles(Set<Role> roles) {
       this.roles = roles;
+   }
+
+   public String getRolesAsString() {
+      StringBuilder sb = new StringBuilder();
+      for (Role role: roles) {
+         sb.append(role.getRole().substring(5) + " ");
+      }
+      return sb.toString();
    }
 
    @Override
@@ -125,7 +122,7 @@ public class User implements UserDetails {
 
    @Override
    public String getUsername() {
-      return name;
+      return email;
    }
 
    @Override
