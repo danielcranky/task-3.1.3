@@ -1,10 +1,10 @@
-package task331.service;
+package task313.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import task331.dao.UserDao;
-import task331.model.User;
+import task313.dao.UserDao;
+import task313.model.User;
 
 import java.util.List;
 

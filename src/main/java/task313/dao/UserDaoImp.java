@@ -1,11 +1,11 @@
-package task331.dao;
+package task313.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
-import task331.model.User;
+import task313.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -52,7 +52,11 @@ public class UserDaoImp implements UserDao {
    @Override
    public void updateUser(Long id, User user) {
       user.setId(id);
-      user.setPassword(bcryptEncoder.encode(user.getPassword()));
+      if (!user.getPassword().equals("")) {
+         user.setPassword(bcryptEncoder.encode(user.getPassword()));
+      } else {
+         user.setPassword(getUser(id).getPassword());
+      }
       em.merge(user);
    }
 

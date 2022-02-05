@@ -1,4 +1,4 @@
-package task331.model;
+package task313.model;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;

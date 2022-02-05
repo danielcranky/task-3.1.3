@@ -1,4 +1,4 @@
-package task331.model;
+package task313.model;
 
 import org.springframework.security.core.GrantedAuthority;
 
@@ -58,7 +58,7 @@ public class Role implements GrantedAuthority {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Role role = (task331.model.Role) o;
+        Role role = (task313.model.Role) o;
         return Objects.equals(id, role.id) &&
                 Objects.equals(roleName, role.roleName);
     }

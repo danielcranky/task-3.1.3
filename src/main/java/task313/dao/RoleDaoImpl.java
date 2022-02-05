@@ -1,7 +1,7 @@
-package task331.dao;
+package task313.dao;
 
 import org.springframework.stereotype.Repository;
-import task331.model.Role;
+import task313.model.Role;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

@@ -1,12 +1,11 @@
-package task331.config;
+package task313.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.Transactional;
-import task331.model.Role;
-import task331.model.User;
-import task331.service.RoleService;
-import task331.service.UserService;
+import task313.model.Role;
+import task313.model.User;
+import task313.service.RoleService;
+import task313.service.UserService;
 
 import javax.annotation.PostConstruct;
 import java.util.HashSet;

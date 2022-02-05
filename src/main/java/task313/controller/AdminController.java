@@ -1,14 +1,13 @@
-package task331.controller;
+package task313.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import task331.model.Role;
-import task331.model.User;
-import task331.service.RoleService;
-import task331.service.UserService;
+import task313.model.Role;
+import task313.model.User;
+import task313.service.RoleService;
+import task313.service.UserService;
 
 import java.util.HashSet;
 import java.util.List;
@@ -18,11 +17,13 @@ import java.util.Set;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final RoleService roleService;
 
-    @Autowired
-    private RoleService roleService;
+    public AdminController(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     @GetMapping()
     public String getUsers(ModelMap model) {
